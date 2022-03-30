@@ -1,8 +1,8 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
-#from st_aggrid import AgGrid, GridOptionsBuilder
-#from st_aggrid.shared import GridUpdateMode
+from st_aggrid import AgGrid, GridOptionsBuilder
+from st_aggrid.shared import GridUpdateMode
 
 ########################
 # Configurar la página #
