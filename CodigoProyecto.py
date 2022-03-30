@@ -24,9 +24,6 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 
 st.title('Recetas')
 
-# df = pd.read_csv("/Users/jinhaozhangguo/Desktop/Proyi/RecetasReducido.csv")
-# st.dataframe(df)
-
 #########################
 # Seleccionar cada fila #
 #########################
