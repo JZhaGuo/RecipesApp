@@ -45,7 +45,7 @@ def aggrid_interactive_table(df: pd.DataFrame):
 
     return selection
 
-receta = pd.read_cs("RecetasReducido.csv")
+receta = pd.read_csv("RecetasReducido.csv")
 
 selection = aggrid_interactive_table(df=receta)
 
