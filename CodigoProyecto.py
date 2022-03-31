@@ -24,14 +24,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 image = Image.open('logoweb.png')
 st.image(image, width=600)
 
-###################
-# Leer data frame #
-###################
-
 st.title('Recetas')
-
-# df = pd.read_csv("/Users/jinhaozhangguo/Desktop/Proyi/RecetasReducido2.csv")
-# st.dataframe(df)
 
 #########################
 # Seleccionar cada fila #
