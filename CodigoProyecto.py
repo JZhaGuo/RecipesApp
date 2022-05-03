@@ -1,19 +1,31 @@
 import streamlit as st
 import pandas as pd
 import numpy as np
+import ast
 from st_aggrid import AgGrid, GridOptionsBuilder
 from st_aggrid.shared import GridUpdateMode
-import smtplib
-from email.mime.text import MIMEText
-from PIL import Image
+
+
+def busquedaReceta(ingredientes):
+    busqueda = []
+    for index, row in df.iterrows():
+        ingReceta = row['NER']
+        mostrar = True
+        for ing in ingredientes:
+            if ing not in ingReceta:
+                mostrar = False
+        if mostrar == True:
+            busqueda.append(index)
+    return busqueda
+
 
 ########################
 # Configurar la página #
 ########################
 
-img = Image.open("logoweb.png")
-st.set_page_config(layout="wide",page_title="Cooklick", page_icon=img,
-                   initial_sidebar_state="expanded", )  # configuramos la página
+#img = Image.open("logoweb.png")
+st.set_page_config(layout="wide",page_title="Cooklick",
+                   initial_sidebar_state="expanded" )  # configuramos la página
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
@@ -21,94 +33,58 @@ hide_menu_style = """
         </style>
         """
 st.markdown(hide_menu_style, unsafe_allow_html=True)
-image = Image.open('logoweb.png')
-st.image(image, width=600)
+#image = Image.open('logoweb.png')
+#st.image(image, width=600)
+
+###################
+# Web #
+###################
+
+df = pd.read_csv("/Users/jinhaozhangguo/Desktop/Proyi/RecetasCompleto_2.0.csv", index_col=0) #.sample(n=4000, random_state=1)
 
 st.title('Recetas')
 
-#########################
-# Seleccionar cada fila #
-#########################
-
-def aggrid_interactive_table(df: pd.DataFrame):
-
-    options = GridOptionsBuilder.from_dataframe(
-        receta, enableRowGroup=True, enableValue=True, enablePivot=True)
-
-    options.configure_side_bar()
-
-    options.configure_selection("single")
-    selection = AgGrid(df,
-        enable_enterprise_modules=True,
-        gridOptions=options.build(),
-        theme="dark",
-        update_mode=GridUpdateMode.MODEL_CHANGED,
-        allow_unsafe_jscode=True)
-
-    return selection
-
-receta = pd.read_csv("/Users/jinhaozhangguo/Desktop/Proyi/RecetasReducido2.csv")
-
-selection = aggrid_interactive_table(df=receta)
-
-if selection:
-    st.write("You selected:")
-    st.json(selection["selected_rows"])
-
-#################
-# Barra lateral #
-#################
-
-st.sidebar.text("")
-st.sidebar.text("")
-recetas = st.sidebar.selectbox("Seleccione una categoría", ("Lleva más preparación", "Platos rápidos", "Postres",
-                                                            "(Próximamente)"))
+options = st.multiselect('Seleccione los ingredientes', ['sugar', 'brown sugar', 'milk', 'nuts', 'butter', 'beef', 'chicken breasts', 'sour cream', 
+                       'cream cheese', 'salt', 'pepper', 'chicken', 'shredded cheese', 'powdered sugar', 'baking potatoes', 
+                       'cheddar cheese', 'bacon', 'egg', 'eggs', 'buttermilk', 'flour', 'tomatoes', 'water', 'onions', 
+                       'oil', 'pineapple', 'lemons', 'boiling water', 'barbacue sauce', 'ground beef', 'shredded lettuce', 
+                       'tomato', 'onion', 'lemon juice', 'strawberries', 'cleaned strawberries', 'mayonnaise', 'vinegar', 
+                       'bananas', 'strawberry', 'garlic', 'vainilla', 'olive oil', 'baking powder', 'cinnamon', 'margarine', 
+                       'celery', 'baking soda', 'parsley', 'vegetable oil', 'oil', 'carrots', 'soy sauce', 'black pepper', 
+                       'mustard', 'chicken broth', 'honey', 'oregano', 'unsalte butter', 'mushrooms'])
 
 
-def enviar(email, recetas):
-    """
-    Suscribe a los emails en el newsletter
-    """
-    text_type = "plain"
-    server = smtplib.SMTP_SSL('smtp.gmail.com', 465)
-    server.login(usuario, contra)
-    texto = f"Le damos la bienvenida al newsletter de CookCLick sobre {recetas}. Cada vez que actualicemos la página recibirá un email con un resumen.\n\nUn saludo,\n\nel equipo de CookClick."
-    msg = MIMEText(texto, text_type, 'utf-8')
-    msg['Subject'] = "Bienvenido"
-    msg['From'] = usuario
-    msg['To'] = email
-    server.sendmail(usuario, usuario, f"Subject:Suscripcion {recetas} {email}")
-    server.send_message(msg)
-    server.quit()
+cool1, cool2 = st.columns(2)
+    
+    
+filtros = cool1.selectbox('Ordenar por: ', ['Menor tiempo', 'Mayor tiempo', 'Menor número de pasos', 'Mayor número de pasos', 'Menor número de ingredientes', 'Mayor número de ingredientes'])
 
-email = st.sidebar.text_input(f"Reciba un email una vez a la semana con información relevante para {recetas}.",
-                              'ejemplo@mail.com')
-a = st.sidebar.button("Suscribirme")
-usuario = "Usuario EMAIL"
-contra = "Contraseña EMAIL"
-
-if a:
-    email1 = email.split("@")
-    if email == "ejemplo@mail.com":
-        st.sidebar.text("Escriba su email")
-        a = False
-    elif len(email1) == 2:
-        email2 = email1[1].split(".")
-        if len(email2) >= 2:
-            enviar(email, provincia)
-            st.sidebar.text("¡Ya se ha suscrito!")
-        else:
-            a = False
-            st.sidebar.text("Email incorrecto, inténtelo de nuevo.")
-    else:
-        a = False
-        st.sidebar.text("Email incorrecto, inténtelo de nuevo.")
+dif = cool2.selectbox('Elige dificultad: ',['Intermedia', 'Difícil', 'Fácil'])
 
 
+if len(options) != 0:
+    with st.spinner("Buscando las recetas"):
+        df = df.iloc[busquedaReceta(options)]
 
-
-
-
-
-
-
+    df = df.loc[df["Dificultad"]==dif]
+       
+    if filtros == 'Menor tiempo':
+        df.sort_values(by=['Tiempo estimado'], ascending=True, inplace=True)
+    elif filtros == 'Mayor tiempo':
+        df.sort_values(by=['Tiempo estimado'], ascending=False, inplace=True)
+    elif filtros == 'Menor número de pasos':
+        df.sort_values(by=['Numero de pasos'], ascending=True, inplace=True)
+    elif filtros == 'Mayor número de pasos':
+        df.sort_values(by=['Numero de pasos'], ascending=False, inplace=True)
+    elif filtros == 'Menor número de ingredientes':
+        df.sort_values(by=['Lista de ingredientes'], ascending=True, inplace=True)
+    elif filtros == 'Mayor número de ingredientes':
+        df.sort_values(by=['Lista de ingredientes'], ascending=False, inplace=True)
+        
+    col1, col2 = st.columns(2)
+    ing = df.iloc[:20]
+    res = col1.radio("Elige una receta para obtener más detalles", ing["title"])
+    ing2 = ing.loc[ing["title"] == res]
+    lista_ing= ", ".join(ast.literal_eval(list(ing2['ingredients'])[0]))
+    lista_pasos= " ".join(ast.literal_eval(list(ing2['directions'])[0]))
+    col2.markdown(f"#### Ingredientes\n{lista_ing}\n#### Instrucciones\n{lista_pasos}\n")
