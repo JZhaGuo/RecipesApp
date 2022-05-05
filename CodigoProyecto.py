@@ -75,12 +75,12 @@ if len(options) != 0:
     elif filtros == 'Mayor número de pasos':
         df.sort_values(by=['Numero de pasos'], ascending=False, inplace=True)
     elif filtros == 'Menor número de ingredientes':
-        df.sort_values(by=['Lista de ingredientes'], ascending=True, inplace=True)
+        df.sort_values(by=['Lista Ingredientes'], ascending=True, inplace=True)
     elif filtros == 'Mayor número de ingredientes':
-        df.sort_values(by=['Lista de ingredientes'], ascending=False, inplace=True)
+        df.sort_values(by=['Lista Ingredientes'], ascending=False, inplace=True)
         
     col1, col2 = st.columns(2)
-    ing = df.iloc[:20]
+    ing = df.iloc[:25]
     res = col1.radio("Elige una receta para obtener más detalles", ing["title"])
     ing2 = ing.loc[ing["title"] == res]
     lista_ing= ", ".join(ast.literal_eval(list(ing2['ingredients'])[0]))
