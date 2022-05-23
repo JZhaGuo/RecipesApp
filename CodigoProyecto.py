@@ -7,7 +7,7 @@ import ast
 def busquedaReceta(ingredientes):
     busqueda = []
     for index, row in df.iterrows():
-        ingReceta = row['NER']
+        ingReceta = row['Ingredientes normalizados']
         mostrar = True
         for ing in ingredientes:
             if ing not in ingReceta:
@@ -83,6 +83,6 @@ if len(options) != 0:
     ing = df.iloc[:25]
     res = col1.radio("Elige una receta para obtener más detalles", ing["title"])
     ing2 = ing.loc[ing["title"] == res]
-    lista_ing= ", ".join(ast.literal_eval(list(ing2['ingredients'])[0]))
-    lista_pasos= " ".join(ast.literal_eval(list(ing2['directions'])[0]))
+    lista_ing= ", ".join(ast.literal_eval(list(ing2['ingredients2'])[0]))
+    lista_pasos= " ".join(ast.literal_eval(list(ing2['directions2'])[0]))
     col2.markdown(f"#### Ingredientes\n{lista_ing}\n#### Instrucciones\n{lista_pasos}\n")
