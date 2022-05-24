@@ -38,7 +38,7 @@ st.markdown(hide_menu_style, unsafe_allow_html=True)
 # Web #
 ###################
 
-df = pd.read_csv("./data.csv", delimiter=',') #.sample(n=4000, random_state=1)
+df = pd.read_csv("data.csv", delimiter=',') #.sample(n=4000, random_state=1)
 
 st.title('Recetas')
 
