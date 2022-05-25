@@ -49,7 +49,13 @@ options = st.multiselect('Select one or more ingredients:', ['sugar', 'brown sug
                        'tomato', 'onion', 'lemon juice', 'strawberries', 'cleaned strawberries', 'mayonnaise', 'vinegar', 
                        'bananas', 'strawberry', 'garlic', 'vainilla', 'olive oil', 'baking powder', 'cinnamon', 'margarine', 
                        'celery', 'baking soda', 'parsley', 'vegetable oil', 'oil', 'carrots', 'soy sauce', 'black pepper', 
-                       'mustard', 'chicken broth', 'honey', 'oregano', 'unsalte butter', 'mushrooms'])
+                       'mustard', 'chicken broth', 'honey', 'oregano', 'unsalte butter', 'mushrooms', 'curry powder', 'butter milk',
+                       'orange liqueur', 'orange rind', 'pecan', 'green peppers', 'stew meat', 'hot water', 'frozen corn', 'bread'
+                       'coconut', 'raisins', 'chocolate','apples', 'gelatin', 'cauliflower', 'lemon', 'salmon', 'lettuce',
+                       'pickle', 'chopped walnuts', 'almond', 'steak', 'chili powder', 'ketchup', 'sliced celery','basil',
+                       'olives', 'cucumber', 'beans', 'cabbage', 'potato', 'fish', 'pumpkin', 'spaghetti', 'ham', 'spinach', 'sausage', 'tuna', 'zucchini','hamburger',
+                       'eggplant', 'avocado', 'chickenbreast', 'yogurt', 'chickpeas', 'chorizo', 'brocoli', 'cilantro', 'basil', 'rice', 'artichokes', 'turmeric', 'pork',
+                       'mango', 'honey'])
 
 
 cool1, cool2 = st.columns(2)
