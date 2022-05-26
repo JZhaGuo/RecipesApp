@@ -1,9 +1,9 @@
 # Data base web --> https://clickhouse.com/docs/en/getting-started/example-datasets/recipes/
 
-
 import pandas as pd
 import math
 
+df = pd.read_csv('full_dataset_limpio.csv', delimiter=',')
 
 def get_pasos(directions):
     """
