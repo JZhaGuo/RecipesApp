@@ -47,7 +47,7 @@ options = st.multiselect('Select one or more ingredients:', ['sugar', 'brown sug
                        'cheddar cheese', 'bacon', 'egg', 'eggs', 'buttermilk', 'flour', 'tomatoes', 'water', 'onions', 
                        'oil', 'pineapple', 'lemons', 'boiling water', 'barbacue sauce', 'ground beef', 'shredded lettuce', 
                        'tomato', 'onion', 'lemon juice', 'strawberries', 'cleaned strawberries', 'mayonnaise', 'vinegar', 
-                       'bananas', 'strawberry', 'garlic', 'vainilla', 'olive oil', 'baking powder', 'cinnamon', 'margarine', 
+                       'bananas', 'strawberry', 'garlic', 'vanilla', 'olive oil', 'baking powder', 'cinnamon', 'margarine', 
                        'celery', 'baking soda', 'parsley', 'vegetable oil', 'oil', 'carrots', 'soy sauce', 'black pepper', 
                        'mustard', 'chicken broth', 'honey', 'oregano', 'unsalte butter', 'mushrooms', 'curry powder', 'butter milk',
                        'orange liqueur', 'orange rind', 'pecan', 'green peppers', 'stew meat', 'hot water', 'frozen corn', 'bread'
