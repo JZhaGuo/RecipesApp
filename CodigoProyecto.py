@@ -3,6 +3,9 @@ import pandas as pd
 import numpy as np
 import ast
 
+##########################################
+# Función para buscador los ingredientes #
+##########################################
 
 def busquedaReceta(ingredientes):
     busqueda = []
@@ -23,7 +26,7 @@ def busquedaReceta(ingredientes):
 
 #img = Image.open("logoweb.png")
 st.set_page_config(layout="wide",page_title="Cooklick",
-                   initial_sidebar_state="expanded" )  # configuramos la página
+                   initial_sidebar_state="expanded" )  
 hide_menu_style = """
         <style>
         #MainMenu {visibility: hidden;}
@@ -57,9 +60,11 @@ options = st.multiselect('Select one or more ingredients:', ['sugar', 'brown sug
                        'eggplant', 'avocado', 'chickenbreast', 'yogurt', 'chickpeas', 'chorizo', 'brocoli', 'cilantro', 'basil', 'rice', 'artichokes', 'turmeric', 'pork',
                        'mango', 'honey'])
 
+#########################################
+# Añadimos las columnas con los filtros #
+#########################################
 
 cool1, cool2 = st.columns(2)
-    
     
 filtros = cool1.selectbox('Select one filter: ', ['Less preparation time', 'More preparation time', 'Less steps', 'More steps', 'Less number of ingredients', 'More number of ingredients'])
 
@@ -90,6 +95,7 @@ if len(options) != 0:
     ing = df.iloc[:25]
     res = col1.radio("Select a recipe for more information", ing["title"])
     ing2 = ing.loc[ing["title"] == res]
+    
     if True:
         lista_ing= ", ".join(ast.literal_eval(list(ing2['ingredients2'])[0]))
         lista_pasos= " ".join(ast.literal_eval(list(ing2['directions2'])[0]))
