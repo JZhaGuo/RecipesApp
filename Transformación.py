@@ -142,6 +142,51 @@ ingredientesComunes = ['sugar', 'brown sugar', 'milk', 'nuts', 'butter', 'beef',
                        
                        
                     
-                       
-                       
+ing_norm = {}
+for index,row in df.iterrows():
+    ner = row['NER']
+    for i in ner.split(', '): 
+        if len(i.split()) == 1:
+            if i.lower() not in ing_norm:
+                ing_norm[i.lower()] = 1
+            else:
+                ing_norm[i.lower()] += 1
+        else:
+            pass
+
+for index,row in df.iterrows():
+    ner = row['NER']
+    for j in ner.split(', '):
+        if len(j.split()) == 1:
+            pass
+        else:
+            for m in j.split():
+                if m.lower() in ing_norm:
+                    ing_norm[m.lower()] += 1
             
+print(ing_norm)                      
+        
+    
+from itertools import combinations
+dic = {}
+for i in range(len(df)): 
+    ing = df.iloc[i]['Ingredientes normalizados']
+    comb = combinations(ing, 2)
+    for n in list(comb):
+        if n in dic:
+            dic[n] += 1
+        else:
+            dic[n] = 1
+            
+            
+claves = []
+valores = []
+for valor in dic.values():
+    valores.append(valor)
+for clave in dic.keys():
+    claves.append(clave)
+elementos = {"combincaciones":claves,"veces":valores}
+combDf = pd.DataFrame(elementos)
+            
+    
+    
